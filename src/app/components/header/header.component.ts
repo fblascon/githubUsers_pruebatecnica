@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -14,10 +14,21 @@ searchForm: FormGroup;
 
 constructor() {
   this.searchForm = new FormGroup({
-    name: new FormControl('', [])
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      this.miValidador
+    ])
   }, [])
 
   this.nombreEmitido = new EventEmitter<string>();
+}
+
+miValidador(control: AbstractControl) { 
+  if (control.value === 'mariogiron') {
+    return { miValidador: true }
+  }
+  return null
 }
 
 getData(): void {

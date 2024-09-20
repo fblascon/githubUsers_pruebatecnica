@@ -1,9 +1,15 @@
 <form action="" [formGroup]="searchForm" (ngSubmit)="getData()">
   <div class="d-flex">
     <input type="text" formControlName="name" placeholder="introduce el nombre" class="form-control me-3">
-  <button type="submit" class="btn btn-danger">
+  <button [disabled]="!searchForm.valid" type="submit" class="btn btn-danger">
     <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 </div>
+  <!-- <p *ngIf="!searchForm.valid">Obligatorio mas de cuatro letras</p> -->
+     <p *ngIf="searchForm.get('name')?.touched  &&  searchForm.get('name')?.hasError('required')">Obligatorio</p>
+          <p *ngIf="searchForm.get('name')?.touched  &&  searchForm.get('name')?.hasError('minLength')">Obligatorio mas de cuatro letras</p>
+          <p *ngIf="searchForm.get('name')?.touched  &&  searchForm.get('name')?.hasError('mivalidador')">Personalizado Mario Giron</p>
+
+
 
 </form>
